@@ -5,10 +5,17 @@
 //
 int main()
 {
-	uart_init(UART1_BASE_PTR, 1000, 9600);
+	SystemCoreClockUpdate();
+	
+	SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
+	PORTC_PCR3 |= (3<<8); //Alt 3
+	PORTC_PCR4 |= (3<<8); //Alt 3
+	//GPIOC_PDDR  |=  (1<<4); //DATA DIRECTION RERGISTER
+	uart_init(UART1_BASE_PTR, DEFAULT_SYSTEM_CLOCK, 9600);
+	
 	while(1)
 	{
-	uart_putchar(UART1_BASE_PTR, 'u');
+	uart_putchar(UART1_BASE_PTR, 'U');
 	}
 }
 //UART 0
